@@ -6,45 +6,137 @@ Created on Thu Oct 18 10:47:18 2018
 @author: carlos
 """
 from random import randint
-from time import sleep
 
+def printRock():
+    print("""
+                 *@@@#                    
+               %,      &@@@@(             
+               @        %     .@           
+             &        /       *,          
+             ,*       #        .,  .@      
+         .*@       @         @     @*    
+      *@      .%. &         .       @    
+      @              /       .      .  @  
+     @                #     /       &   @ 
+    ./                     %       &    @ 
+    &       %         *   %       &    #/ 
+    @           ,&/.,@  ,.       #     @  
+    /*                 @(      &      @   
+     @                 (  #( &      ,#    
+      @                         ,. @      
+      ##                         #*      
+       @%                      @,       
+            @@*      .        ,@(         
+                 @ @ @ @@ ./%#,          
+        """)
+def printPaper():
+    print("""
+                 // ,#                 
+        ,@@(     /   /                 
+       /    %   .,   /      #@,        
+        /   (   *    (    .*   %       
+        &    /  (    %    (   *        
+/ **    ,    &  %    &   #    (        
+    @    /   ,. &    /  %    &         
+&    (   %    & &   *  %    @          
+ %    *. &                 &           
+  %    **#                &            
+   #              ,%      /            
+    /          /&    *&.  &      /@%#&*
+     &   *%@*      &       @.*      .
+     #            &                  &,
+      *          %               ,@    
+      &          #            ##       
+       /         /          .*         
+        #                  ,*          
+         #.              .&   
+        """)
+
+def printScissors():
+    print(""" 
+                  .                    
+               #.   .#         @,  *(  
+               (     %        %      % 
+               *     *       @      @  
+               @      *     &      &   
+               ./     @    /      ,    
+                %     *   ..      &    
+                 /     %  #      (     
+           .#   .@ .*,,,@(       @     
+      #.   &     @          (@   @     
+      *    (     %              @&     
+      #     &      @/            */    
+      ,.     #     ,    **         ,   
+       @#     #     ,  #,          &   
+       # &.   #(@@#   *           ..   
+        &                        ,(    
+         #                      (.     
+          %                   */       
+            ,@             /%     
+        """)
+    
 def tornMaquina():
     return randint(1,3) 
     
 def winner(tp, tm, pp, pm):
-#1 = pedra
-#2 = paper
-#3 = tisores
+    #1 = pedra
+    #2 = paper
+    #3 = tisores
     if(tp == 1):
+        print("Jugador:")
+        printRock()
         if(tm == 1):
-            print("-------------\nPedra vs Pedra\nEmpat!\n")
+            print("Maquinà:")
+            printRock()
+            print("Empat!\n")
             return pp, pm
         elif(tm == 2):
-            print("-------------\nPedra vs Paper\nGuanya Màquina!\n")
+            print("Maquinà:")
+            printPaper()
+            print("Guanya Màquina!\n")
             return pp, pm+1
         elif(tm == 3):
-            print("-------------\nPedra vs Tisores\nGuanya Jugador!\n")
+            print("Maquinà:")
+            printScissors()
+            print("Guanya Jugador!\n")
             return pp+1,pm
     elif(tp == 2):
+        print("Jugador:")
+        printPaper()
         if(tm == 1):
-            print("-------------\nPaper vs Pedra\nGuanya Jugador!\n")
+            print("Maquinà:")
+            printRock()
+            print("Guanya Jugador!\n")
             return pp+1, pm
         elif(tm == 2):
-            print("-------------\nPaper vs Paper\nEmpat!\n")
+            print("Maquinà:")
+            printPaper()
+            print("Empat!\n")
             return pp,pm
         elif(tm == 3):
-            print("-------------\nPaper vs Tisores\nGuanya Màquina\n")
+            print("Maquinà:")
+            printScissors()
+            print("Guanya Màquina\n")
             return pp,pm+1
     elif (tp == 3):
+        print("Jugador:")
+        printScissors()
         if(tm == 1):
-            print("-------------\nTisores vs Pedra\nGuanya Màquina\n")
+            print("Maquinà:")
+            printRock()
+            print("Guanya Màquina\n")
             return pp,pm+1
         elif(tm == 2):
-            print("-------------\nTisores vs Paper\nGuanya Jugador\n")
+            print("Maquinà:")
+            printPaper()
+            print("Guanya Jugador\n")
             return pp+1, pm
         elif(tm == 3):
-            print("-------------\nTisores vs Tisores\nEmpat!\n")
+            print("Maquinà:")
+            printScissors()
+            print("Empat!\n")
             return pp,pm
+        
 def saveGame(pp,pm):
     fileW = open("saves.txt", "w")
     fileW.write(str(pp) + "\n" + str(pm) + "\n")
@@ -54,7 +146,7 @@ def startGame(pPlayer, pMachine):
     opcioJoc = 0
     while(opcioJoc != 5):
         print("PUNTUACIO JUGADOR:",pPlayer, "\nPUNTUACIO MAQUINA:", pMachine, "\n-------------")
-        opcioJoc = int(input("1. Jugar pedra\n2. Jugar paper\n3. Jugar tisores\n4. Guardar partida\n5. Sortir\nQue vols fer?"))
+        opcioJoc = int(input("1. Jugar pedra - 2. Jugar paper - 3. Jugar tisores -4. Guardar partida - 5. Sortir\nQue vols fer?"))
         print()
         if(opcioJoc > 0 and opcioJoc < 4):
             numMaquina = tornMaquina()
